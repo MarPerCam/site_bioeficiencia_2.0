@@ -12,7 +12,7 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="icon" href="img/logo_bg.png" type="image/png">
+    <link rel="icon" href="img/logo_dark.png" type="image/png">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
     <nav class="navbar">
         <div class="container nav-container">
             <a href="#" class="logo">
-                <img src="img/logo_bg.png" alt="Logo BioEficiência" class="logo-img">
+                <img src="img/logo_dark.png" alt="Logo BioEficiência" class="logo-img">
                 <span>Bio<span class="text-highlight">Eficiência</span></span>
             </a>
             <div class="mobile-toggle">
@@ -33,6 +33,12 @@
                 <li><a href="#servicos" class="nav-link">Serviços</a></li>
                 <li><a href="#metodologia" class="nav-link">Metodologia</a></li>
                 <li><a href="#contato" class="nav-link">Contato</a></li>
+                <li>
+                    <button id="theme-toggle"
+                        style="background:none; border:none; cursor:pointer; color: var(--primary-color); font-size: 1.2rem; margin-left:10px;">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
             </ul>
         </div>
     </nav>
@@ -48,8 +54,7 @@
                     técnico para transformar sua operação.</p>
                 <div class="hero-btns">
                     <a href="https://wa.me/554491218441" class="btn" target="_blank">Fale Conosco</a>
-                    <a href="servicos-detalhes.html" class="btn btn-outline"
-                        style=" margin-left: 10px; border-color: var(--primary-color); color: var(--primary-color);">Nossos
+                    <a href="servicos-detalhes.html" class="btn btn-outline">Nossos
                         Serviços</a>
                 </div>
             </div>
@@ -201,6 +206,67 @@
         </div>
     </section>
 
+
+    <!-- Savings Calculator Section -->
+    <section id="calculadora" class="calculator-section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title" data-aos="fade-up">Calculadora de Economia</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    Estime quanto você pode economizar anualmente com nossos projetos de eficiência energética e biogás.
+                </p>
+            </div>
+
+            <div class="calculator-box" data-aos="fade-up" data-aos-delay="200">
+                <div class="input-group">
+                    <label for="energy-cost">Gasto Mensal de Energia (R$)</label>
+                    <input type="number" id="energy-cost" placeholder="Ex: 5000" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="state-select">Seu Estado</label>
+                    <select id="state-select">
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR" selected>Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="calculateSavings()">Calcular Economia</button>
+
+                <div id="result-box" class="result-box" style="display: none;">
+                    <h3>Estimativa de Economia Anual:</h3>
+                    <div id="savings-amount" class="savings-amount">R$ 0,00</div>
+                    <p class="note">*Calculo baseado em uma estimativa . Para um cálculo preciso,
+                        solicite
+                        um orçamento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer / Contact -->
     <footer id="contato" class="footer">
         <div class="container">
@@ -214,8 +280,8 @@
                 <div>
                     <h3>Contato</h3>
                     <ul class="contact-info">
-                        <li><i class="fas fa-envelope"></i> <a
-                                href="mailto:eng@bioeficiencia.com.br">eng@bioeficiencia.com.br</a></li>
+                        <li><a href="mailto:eng@bioeficiencia.com.br?subject=Interesse%20em%20Solu%C3%A7%C3%B5es%20BioEfici%C3%AAncia&body=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20minha%20empresa."
+                                target="_blank"><i class="fas fa-envelope"></i> eng@bioeficiencia.com.br</a></li>
                         <li><i class="fas fa-phone"></i> <a href="https://wa.me/5544991218441" target="_blank">(44)
                                 99121-8441</a></li>
                     </ul>
