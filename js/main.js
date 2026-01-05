@@ -2,15 +2,58 @@ document.addEventListener('DOMContentLoaded', function () {
     // Navbar Scroll Effect
     const navbar = document.querySelector('.navbar');
 
-    window.addEventListener('scroll', function () {
-        if (window.scrollY > 50) {
-            navbar.style.padding = '10px 0';
-            navbar.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-        } else {
-            navbar.style.padding = '20px 0';
-            navbar.style.boxShadow = 'none';
-        }
-    });
+    // Scroll effect removed to standardize navbar size
+    // window.addEventListener('scroll', function () {
+    //     if (window.scrollY > 50) {
+    //         navbar.style.padding = '10px 0';
+    //         navbar.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+    //     } else {
+    //         navbar.style.padding = '45px 0';
+    //         navbar.style.boxShadow = 'none';
+    //     }
+    // });
+
+
+    // Theme Toggle Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem("theme");
+
+    // Apply saved theme on load
+    if (currentTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        if (themeToggle) themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            let theme = "light";
+            if (document.documentElement.getAttribute("data-theme") !== "dark") {
+                theme = "dark";
+            }
+
+            document.documentElement.setAttribute("data-theme", theme);
+            localStorage.setItem("theme", theme);
+
+            // Toggle Icon & Logo
+            const icon = themeToggle.querySelector('i');
+            const logoImg = document.querySelector('.logo-img');
+
+            if (theme === 'dark') {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                if (logoImg) logoImg.src = 'img/logo_dark.png';
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                if (logoImg) logoImg.src = 'img/logo_dark.png';
+            }
+        });
+    }
+
+    // Set initial logo on load
+    const currentThemeOnLoad = document.documentElement.getAttribute("data-theme");
+    const logoImg = document.querySelector('.logo-img');
+    if (currentThemeOnLoad === 'dark' && logoImg) {
+        logoImg.src = 'img/logo_dark.jpg';
+    }
 
     // Mobile Menu Toggle
     const mobileToggle = document.querySelector('.mobile-toggle');
@@ -97,18 +140,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function moveMarker(targetLink) {
         if (!targetLink || !marker) return;
-        // Calculation relative to the UL parent
-        // We use offsetLeft and offsetWidth of the <a> link, 
-        // but note the <a> is inside an <li>? 
-        // Wait, HTML structure is: <ul> <li> <a ...> </a> </li> ... </ul>
-        // So we need to target the LI parent of the active string, or position relative to the LI?
-        // The nav-links is row flex. The items are LI. The A is inside LI.
-        // Let's target the A's position relative to nav-links?
-        // nav-links (relative) -> li -> a
-        // offsetLeft of a is relative to li? No, relative to offsetParent.
-        // If li is static, a's offsetParent might be nav-links (if relative).
-        // Let's check styling. LI has no position set in CSS I saw. nav-links is now relative.
 
+        // Use the relative position within nav-links
+        // nav-links is position: relative
         const rect = targetLink.getBoundingClientRect();
         const parentRect = navLinksList.getBoundingClientRect();
 
@@ -118,19 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
         marker.style.left = `${relativeLeft}px`;
         marker.style.width = `${width}px`;
     }
-
-    // Initialize marker on first active link
-    const initialActive = document.querySelector('.nav-link.active');
-    if (initialActive) moveMarker(initialActive);
-
-    // Update on click
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            links.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-            moveMarker(link);
-        });
-    });
 
     // Intersection Observer for Sections to auto-update active state
     // We want to highlight the section that is currently most visible.
@@ -167,3 +188,63 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
+// Savings Calculator Function (Global)
+function calculateSavings() {
+    const costInput = document.getElementById('energy-cost');
+    const stateSelect = document.getElementById('state-select');
+    const resultBox = document.getElementById('result-box');
+    const savingsAmount = document.getElementById('savings-amount');
+
+    // Average Industrial/Commercial Tariff approximations (R$/kWh) - 2024 Estimates
+    const stateTariffs = {
+        'AC': 1.05, 'AL': 0.95, 'AP': 0.98, 'AM': 1.02,
+        'BA': 0.88, 'CE': 0.92, 'DF': 0.85, 'ES': 0.82,
+        'GO': 0.84, 'MA': 1.08, 'MT': 0.96, 'MS': 0.94,
+        'MG': 0.89, 'PA': 1.12, 'PB': 0.90, 'PR': 0.86,
+        'PE': 0.91, 'PI': 1.00, 'RJ': 1.15, 'RN': 0.93,
+        'RS': 0.87, 'RO': 0.98, 'RR': 1.10, 'SC': 0.80,
+        'SP': 0.85, 'SE': 0.92, 'TO': 1.05
+    };
+
+    const monthlyCost = parseFloat(costInput.value);
+    const selectedState = stateSelect.value;
+    const tariff = stateTariffs[selectedState] || 0.85; // Default fallback
+
+    if (isNaN(monthlyCost) || monthlyCost <= 0) {
+        alert("Por favor, insira um valor válido para o gasto mensal.");
+        return;
+    }
+
+    // Calculations
+    const annualizedCost = monthlyCost * 12;
+    // Estimated Money Saved (30% reduction) - Keep simple business logic
+    const estimatedMoneySaved = annualizedCost * 0.30;
+
+    // Estimated Energy Saved (kWh)
+    const monthlyKWh = monthlyCost / tariff;
+    const annualKWhSaved = (monthlyKWh * 12) * 0.30;
+
+    savingsAmount.innerText = estimatedMoneySaved.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    });
+
+    // Create or update detail text
+    let detailsEl = document.getElementById('savings-details');
+    if (!detailsEl) {
+        detailsEl = document.createElement('p');
+        detailsEl.id = 'savings-details';
+        detailsEl.style.marginTop = '10px';
+        detailsEl.style.fontSize = '0.95rem';
+        detailsEl.style.color = 'var(--primary-color)';
+        resultBox.insertBefore(detailsEl, resultBox.querySelector('.note'));
+    }
+
+    detailsEl.innerHTML = `
+        <strong>Estado:</strong> ${selectedState} (Tarifa ref: R$ ${tariff.toFixed(2)}/kWh)<br>
+        <strong>Energia Poupada:</strong> ~${Math.round(annualKWhSaved).toLocaleString('pt-BR')} kWh/ano
+    `;
+
+    resultBox.style.display = 'block';
+}
