@@ -21,7 +21,7 @@
     <nav class="navbar">
         <div class="container nav-container">
             <a href="index.html" class="logo">
-                <img src="img/logo_bg.png" alt="Logo BioEficiência" class="logo-img">
+                <img src="img/logo_dark.png" alt="Logo BioEficiência" class="logo-img">
                 <span>Bio<span class="text-highlight">Eficiência</span></span>
             </a>
             <div class="mobile-toggle">
@@ -33,6 +33,12 @@
                 <li><a href="index.html#servicos" class="nav-link active">Serviços</a></li>
                 <li><a href="index.html#metodologia" class="nav-link">Metodologia</a></li>
                 <li><a href="index.html#contato" class="nav-link">Contato</a></li>
+                <li>
+                    <button id="theme-toggle"
+                        style="background:none; border:none; cursor:pointer; color: var(--primary-color); font-size: 1.2rem; margin-left:10px;">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
             </ul>
         </div>
     </nav>
@@ -171,8 +177,8 @@
                 <div>
                     <h3>Contato</h3>
                     <ul class="contact-info">
-                        <li><i class="fas fa-envelope"></i> <a
-                                href="mailto:eng@bioeficiencia.com.br">eng@bioeficiencia.com.br</a></li>
+                        <li><a href="mailto:eng@bioeficiencia.com.br?subject=Interesse%20em%20Solu%C3%A7%C3%B5es%20BioEfici%C3%AAncia&body=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20minha%20empresa."
+                                target="_blank"><i class="fas fa-envelope"></i> eng@bioeficiencia.com.br</a></li>
                         <li><i class="fas fa-phone"></i> <a href="https://wa.me/5544991218441" target="_blank">(44)
                                 99121-8441</a></li>
                     </ul>
@@ -216,7 +222,6 @@
             });
         });
     </script>
-    <script src="js/main.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
