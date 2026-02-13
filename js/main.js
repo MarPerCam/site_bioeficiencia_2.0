@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentThemeOnLoad = document.documentElement.getAttribute("data-theme");
     const logoImg = document.querySelector('.logo-img');
     if (currentThemeOnLoad === 'dark' && logoImg) {
-        logoImg.src = 'img/logo_dark.jpg';
+        logoImg.src = 'img/logo_dark.png';
     }
 
     // Mobile Menu Toggle
