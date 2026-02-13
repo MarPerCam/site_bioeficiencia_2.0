@@ -577,6 +577,15 @@ img {
     opacity: 0.7;
 }
 
+.footer-desc {
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .footer-desc {
+    color: rgba(0, 0, 0, 0.8);
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .process-steps {
